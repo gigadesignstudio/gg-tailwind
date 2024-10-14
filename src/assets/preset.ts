@@ -249,8 +249,6 @@ const config: Partial<Config> = () => {
               return acc;
             }, {});
 
-          console.log(typographySorted);
-
           addUtilities({
             ...typographySorted,
           });
