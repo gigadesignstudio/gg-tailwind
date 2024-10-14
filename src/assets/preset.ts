@@ -16,19 +16,19 @@ const parsedValue = (key: string, value: any) => {
                 [k]: {
                   ...acc[k],
                   [kk]: `var(--${key}-${k}-${kk})`,
-                }
-              }
+                },
+              };
             } else {
               acc = { ...acc, [k]: `var(--${key}-${k})` };
             }
-          }, {})
+          }, {});
         } else if (key === "screens") {
           acc = { ...acc, [k]: v };
         } else {
           acc = { ...acc, [k]: `var(--${key}-${k})` };
         }
-          return acc;
-        }, {});
+        return acc;
+      }, {});
     }
     default: {
       return `var(--${key})`;
@@ -56,62 +56,62 @@ const baseEntryValue = (key: string, k: any, kk: string, vv: any) => {
   switch (true) {
     case kk === "default": {
       return {
-        [`--${key}-${k}`]: vv
-      }
+        [`--${key}-${k}`]: vv,
+      };
     }
     case !isNaN(Number(kk)): {
       return {
-        [`--${key}-${k}-${kk}`]: vv
-      }
+        [`--${key}-${k}-${kk}`]: vv,
+      };
     }
-    case typeof kk === 'string': {
+    case typeof kk === "string": {
       return {
         [`@media screen(${kk})`]: {
-          [`--${key}-${k}`]: vv
-        }
-      }
+          [`--${key}-${k}`]: vv,
+        },
+      };
     }
   }
-}
+};
 
 const baseEntry = (key: string, value: any, accR: any) => {
   switch (typeof value) {
     case "object": {
       return Object.entries(value).reduce((acc, [k, v]) => {
-          switch (typeof v) {
+        switch (typeof v) {
           case "object": {
             return {
-                ...acc,
-                ...Object.entries(v).reduce((accV, [kk, vv]) => {
-                  const entryValue = baseEntryValue(key, k, kk, vv);
-                  const [kkk, vvv] = Object.entries(entryValue)[0];
-                  const [kkkk, vvvv] = Object.entries(vvv)[0]
-                  if (kkk.startsWith('@media')) {
-                    accV = {
-                      ...accV,
-                      [kkk]: {
-                        ...accV[kkk],
-                        [kkkk]: vvvv
-                      },
-                    };
-                  } else {
-                    accV = {
-                      ...accV,
-                      ...entryValue,
-                    };
-                  }
-                  return accV;
-                }, acc)
-              }
+              ...acc,
+              ...Object.entries(v).reduce((accV, [kk, vv]) => {
+                const entryValue = baseEntryValue(key, k, kk, vv);
+                const [kkk, vvv] = Object.entries(entryValue)[0];
+                const [kkkk, vvvv] = Object.entries(vvv)[0];
+                if (kkk.startsWith("@media")) {
+                  accV = {
+                    ...accV,
+                    [kkk]: {
+                      ...accV[kkk],
+                      [kkkk]: vvvv,
+                    },
+                  };
+                } else {
+                  accV = {
+                    ...accV,
+                    ...entryValue,
+                  };
+                }
+                return accV;
+              }, acc),
+            };
           }
           default: {
             return {
-                ...acc,
-                [`--${key}-${k}`]: v,
-              }
+              ...acc,
+              [`--${key}-${k}`]: v,
+            };
           }
         }
-      }, accR)
+      }, accR);
     }
     default: {
       return {
@@ -119,6 +119,41 @@ const baseEntry = (key: string, value: any, accR: any) => {
       };
     }
   }
+};
+
+const typographyEntryValue = (key: string, k: any, v: any, accR: any) => {
+  switch (typeof v) {
+    case "object": {
+      Object.entries(v).reduce((accV, [kk, vv]) => {
+        if (kk !== "default") {
+          if (!accV[`@media screen(${kk})`]) {
+            accV[`@media screen(${kk})`] = {};
+            if (!accV[`@media screen(${kk})`][`.typo-${key}`]) {
+              accV[`@media screen(${kk})`][`.typo-${key}`] = {};
+            }
+          }
+          accV[`@media screen(${kk})`][`.typo-${key}`][k] = vv;
+        }
+        return accV;
+      }, accR);
+
+      return v.default;
+    }
+    default: {
+      return v;
+    }
+  }
+};
+
+const typographyEntry = (key: string, value: any, accR: any) => {
+  return Object.entries(value).reduce((accV, [k, v]) => {
+    const entryValue = typographyEntryValue(key, k, v, accR);
+    if (!accV[`.typo-${key}`]) {
+      accV[`.typo-${key}`] = {};
+    }
+    accV[`.typo-${key}`][k] = entryValue;
+    return accV;
+  }, accR);
 };
 
 const themeBase = {
@@ -143,27 +178,29 @@ const config: Partial<Config> = () => {
       typographyPlugin,
       plugin(({ addBase, addComponents, addUtilities }) => {
         const root = Object.entries(tokens)
-        .filter(([key]) => !exclude.includes(key))
-        .reduce((acc, [key, value]) => {
-          acc = {
-            ...acc,
-            ...baseEntry(key, value, acc),
-          };
-          return acc;
-        }, {})
+          .filter(([key]) => !exclude.includes(key))
+          .reduce((acc, [key, value]) => {
+            acc = {
+              ...acc,
+              ...baseEntry(key, value, acc),
+            };
+            return acc;
+          }, {});
 
-        const rootSorted = Object.keys(root).sort((a, b) => {
-          if (a.startsWith('@media')) {
-            return 1;
-          }
-          return -1;
-        }).reduce((acc, key) => {
-          acc = {
-            ...acc,
-            [key]: root[key],
-          }
-          return acc;
-        }, {})
+        const rootSorted = Object.keys(root)
+          .sort((a, b) => {
+            if (a.startsWith("@media")) {
+              return 1;
+            }
+            return -1;
+          })
+          .reduce((acc, key) => {
+            acc = {
+              ...acc,
+              [key]: root[key],
+            };
+            return acc;
+          }, {});
 
         addBase({
           ":root": rootSorted,
@@ -178,23 +215,50 @@ const config: Partial<Config> = () => {
                 weight: font.weight,
                 style: font.style,
                 src: font.src,
-              }
+              },
             });
-          })
+          });
         }
 
         const typography = Object.keys(tokens).find((key) => key === "typography");
         if (typography) {
-          // addUtilities({
-          //   ...tokens[typography]
-          // }
-          // )
+          const obj = {};
+          const typographyParsed = Object.entries(tokens[typography]).reduce(
+            (acc, [key, value]) => {
+              acc = {
+                ...acc,
+                ...typographyEntry(key, value, acc),
+              };
+              return acc;
+            },
+            obj
+          );
+
+          const typographySorted = Object.keys(typographyParsed)
+            .sort((a, b) => {
+              if (a.startsWith("@media")) {
+                return 1;
+              }
+              return -1;
+            })
+            .reduce((acc, key) => {
+              acc = {
+                ...acc,
+                [key]: typographyParsed[key],
+              };
+              return acc;
+            }, {});
+
+          console.log(typographySorted);
+
+          addUtilities({
+            ...typographySorted,
+          });
         }
       }),
     ],
   };
 };
-
 
 // const result: Partial<Config> = {
 //   theme: {

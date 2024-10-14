@@ -2,7 +2,7 @@
 
 <template>
   <main>
-    <div v-for="n in 12" class="p-s text-grey-900">
+    <div v-for="n in 12" class="typo-p p-s text-grey-900">
       {{ n }}
     </div>
   </main>
