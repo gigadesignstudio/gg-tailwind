@@ -1,0 +1,11 @@
+@layer base {
+  .prose {
+    *:not(h1) {
+      @apply typo-p;
+    }
+
+    h1 {
+      @apply typo-1;
+    }
+  }
+}
