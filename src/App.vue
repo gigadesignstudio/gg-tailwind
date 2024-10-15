@@ -2,7 +2,7 @@
 
 <template>
   <main class="p-s">
-    <article class="prose">
+    <article class="wysiwyg">
       <h1>Didn't melt fairer keepsakes since Fellowship elsewhere.</h1>
       <p>
         Woodlands payment Osgiliath tightening. Barad-dur follow belly comforts tender tough bell?

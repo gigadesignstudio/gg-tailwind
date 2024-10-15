@@ -30,6 +30,169 @@ const themeBase = {
             "--tw-prose-pre-bg": theme("colors.grey[100]"),
             "--tw-prose-th-borders": theme("colors.grey[900]"),
             "--tw-prose-td-borders": theme("colors.grey[900]"),
+            p: {
+              marginTop: theme("spacing.s"),
+              marginBottom: theme("spacing.s"),
+            },
+            '[class~="lead"]': {
+              marginTop: theme("spacing.s"),
+              marginBottom: theme("spacing.s"),
+            },
+            blockquote: {
+              marginTop: theme("spacing.s"),
+              marginBottom: theme("spacing.s"),
+              paddingInlineStart: theme("spacing.s"),
+            },
+            h1: {
+              marginTop: theme("spacing.0"),
+              marginBottom: theme("spacing.s"),
+            },
+            h2: {
+              marginTop: theme("spacing.s"),
+              marginBottom: theme("spacing.s"),
+            },
+            h3: {
+              marginTop: theme("spacing.s"),
+              marginBottom: theme("spacing.s"),
+            },
+            h4: {
+              marginTop: theme("spacing.s"),
+              marginBottom: theme("spacing.s"),
+            },
+            img: {
+              marginTop: theme("spacing.s"),
+              marginBottom: theme("spacing.s"),
+            },
+            picture: {
+              marginTop: theme("spacing.s"),
+              marginBottom: theme("spacing.s"),
+            },
+            "picture > img": {
+              marginTop: theme("spacing.0"),
+              marginBottom: theme("spacing.0"),
+            },
+            video: {
+              marginTop: theme("spacing.s"),
+              marginBottom: theme("spacing.s"),
+            },
+            kbd: {
+              borderRadius: theme("borderRadius.DEFAULT"),
+            },
+            code: {},
+            "h2 code": {},
+            "h3 code": {},
+            pre: {
+              marginTop: theme("spacing.s"),
+              marginBottom: theme("spacing.s"),
+              borderRadius: theme("borderRadius.DEFAULT"),
+              paddingTop: theme("spacing.s"),
+              paddingInlineEnd: theme("spacing.s"),
+              paddingBottom: theme("spacing.s"),
+              paddingInlineStart: theme("spacing.s"),
+            },
+            ol: {
+              marginTop: theme("spacing.s"),
+              marginBottom: theme("spacing.s"),
+              paddingInlineStart: theme("spacing.0"),
+            },
+            ul: {
+              marginTop: theme("spacing.s"),
+              marginBottom: theme("spacing.s"),
+              paddingInlineStart: theme("spacing.0"),
+            },
+            li: {
+              marginTop: theme("spacing.s"),
+              marginBottom: theme("spacing.s"),
+              listStylePosition: "inside",
+            },
+            "ol > li": {
+              paddingInlineStart: theme("spacing.0"),
+            },
+            "ul > li": {
+              paddingInlineStart: theme("spacing.0"),
+            },
+            "> ul > li p": {
+              marginTop: theme("spacing.s"),
+              marginBottom: theme("spacing.s"),
+            },
+            "> ul > li > p:first-child": {
+              marginTop: theme("spacing.s"),
+            },
+            "> ul > li > p:last-child": {
+              marginBottom: theme("spacing.s"),
+            },
+            "> ol > li > p:first-child": {
+              marginTop: theme("spacing.s"),
+            },
+            "> ol > li > p:last-child": {
+              marginBottom: theme("spacing.s"),
+            },
+            "ul ul, ul ol, ol ul, ol ol": {
+              marginTop: theme("spacing.s"),
+              marginBottom: theme("spacing.s"),
+            },
+            dl: {
+              marginTop: theme("spacing.s"),
+              marginBottom: theme("spacing.s"),
+            },
+            dt: {
+              marginTop: theme("spacing.s"),
+            },
+            dd: {
+              marginTop: theme("spacing.s"),
+              paddingInlineStart: theme("spacing.s"),
+            },
+            hr: {
+              marginTop: theme("spacing.s"),
+              marginBottom: theme("spacing.s"),
+            },
+            "hr + *": {
+              marginTop: theme("spacing.0"),
+            },
+            "h2 + *": {
+              marginTop: theme("spacing.0"),
+            },
+            "h3 + *": {
+              marginTop: theme("spacing.0"),
+            },
+            "h4 + *": {
+              marginTop: theme("spacing.0"),
+            },
+            table: {},
+            "thead th": {
+              paddingInlineEnd: theme("spacing.s"),
+              paddingBottom: theme("spacing.s"),
+              paddingInlineStart: theme("spacing.s"),
+            },
+            "thead th:first-child": {
+              paddingInlineStart: theme("spacing.0"),
+            },
+            "thead th:last-child": {
+              paddingInlineEnd: theme("spacing.0"),
+            },
+            "tbody td, tfoot td": {
+              paddingTop: theme("spacing.s"),
+              paddingInlineEnd: theme("spacing.s"),
+              paddingBottom: theme("spacing.s"),
+              paddingInlineStart: theme("spacing.s"),
+            },
+            "tbody td:first-child, tfoot td:first-child": {
+              paddingInlineStart: theme("spacing.0"),
+            },
+            "tbody td:last-child, tfoot td:last-child": {
+              paddingInlineEnd: theme("spacing.0"),
+            },
+            figure: {
+              marginTop: theme("spacing.s"),
+              marginBottom: theme("spacing.s"),
+            },
+            "figure > *": {
+              marginTop: theme("spacing.0"),
+              marginBottom: theme("spacing.0"),
+            },
+            figcaption: {
+              marginTop: theme("spacing.s"),
+            },
           },
         ],
       },

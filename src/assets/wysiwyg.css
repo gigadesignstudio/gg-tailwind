@@ -1,6 +1,7 @@
 @layer base {
-  .prose {
-    *:not(h1) {
+  .wysiwyg {
+    @apply lay;
+    * {
       @apply typo-p;
     }
 

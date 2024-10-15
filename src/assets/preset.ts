@@ -1,14 +1,16 @@
 import type { Config } from "tailwindcss";
 import plugin from "tailwindcss/plugin";
-import typographyPlugin from "@tailwindcss/typography";
 import tokens from "./tokens.json";
+import typographyPlugin from "@tailwindcss/typography";
 import { theme, root, typography } from "./main";
 
 const config: Partial<Config> = () => {
   return {
     theme,
     plugins: [
-      typographyPlugin,
+      typographyPlugin({
+        className: "wysiwyg",
+      }),
       plugin(({ addBase, addComponents, addUtilities }) => {
         addBase({
           ":root": root(),
