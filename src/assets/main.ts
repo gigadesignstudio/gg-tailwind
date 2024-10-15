@@ -1,5 +1,4 @@
 import defaultTheme from "tailwindcss/defaultTheme";
-import tokens from "./tokens.json";
 
 const exclude = ["fonts", "typography"];
 
@@ -361,7 +360,7 @@ const typographyEntry = (key: string, value: any, accR: any) => {
   }, accR);
 };
 
-export const root = () => {
+export const root = (tokens: any) => {
   const rootParsed: any = Object.entries(tokens)
     .filter(([key]) => !exclude.includes(key))
     .reduce((acc, [key, value]) => {
@@ -379,13 +378,25 @@ export const root = () => {
       }
       return -1;
     })
-    .reduce((acc, key) => {
-      acc = {
-        ...acc,
-        [key]: rootParsed[key],
-      };
-      return acc;
-    }, {});
+    .reduce(
+      (acc, key) => {
+        acc = {
+          ...acc,
+          [key]: rootParsed[key],
+        };
+        return acc;
+      },
+      {
+        "--dvh": "1vh",
+        "--vh": "1vh",
+        "@supports (height: 1dvh)": {
+          "--dvh": "1dvh",
+        },
+        "@supports (height: 1svh)": {
+          "--vh": "1svh",
+        },
+      }
+    );
 };
 
 export const typography = (params: any) => {
@@ -413,9 +424,10 @@ export const typography = (params: any) => {
     }, {});
 };
 
-export const theme = Object.entries(tokens)
-  .filter(([key]) => !exclude.includes(key))
-  .reduce((acc, [key, value]) => {
-    acc = { ...acc, ...themeEntry(key, value) };
-    return acc;
-  }, themeBase);
+export const theme = (tokens: any) =>
+  Object.entries(tokens)
+    .filter(([key]) => !exclude.includes(key))
+    .reduce((acc, [key, value]) => {
+      acc = { ...acc, ...themeEntry(key, value) };
+      return acc;
+    }, themeBase);

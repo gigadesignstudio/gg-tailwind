@@ -1,19 +1,18 @@
 import type { Config } from "tailwindcss";
 import plugin from "tailwindcss/plugin";
-import tokens from "./tokens.json";
 import typographyPlugin from "@tailwindcss/typography";
 import { theme, root, typography } from "./main";
 
-const config: Partial<Config> = () => {
+const config: Partial<Config> = (tokens: any) => {
   return {
-    theme,
+    theme: theme(tokens),
     plugins: [
       typographyPlugin({
         className: "wysiwyg",
       }),
       plugin(({ addBase, addComponents, addUtilities }) => {
         addBase({
-          ":root": root(),
+          ":root": root(tokens),
         });
 
         const fontFace = Object.keys(tokens).find((key) => key === "fonts");
@@ -21,9 +20,9 @@ const config: Partial<Config> = () => {
           tokens[fontFace].forEach((font) => {
             addBase({
               "@font-face": {
-                fontFamily: font.family,
+                fontFamily: font.fontFamily,
                 fontWeight: font.fontWeight,
-                style: font.style,
+                fontStyle: font.fontStyle,
                 src: font.src,
               },
             });
