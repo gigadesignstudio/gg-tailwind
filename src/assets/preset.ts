@@ -44,16 +44,19 @@ const config: Partial<Config> = (tokens: any) => {
             gridAutoRows: "minmax(0, auto)",
           },
           ".lay-v": {
-            gridAutoFlow: "column",
+            gridAutoFlow: "row",
           },
           ".lay-h": {
             gridAutoFlow: "column",
           },
           ".lay-o": {
-            display: "grid",
             "> *": {
               gridArea: "1 / 1",
             },
+          },
+          ".lay-fluid": {
+            gridAutoColumns: "initial",
+            gridAutoRows: "initial",
           },
         });
       }),
