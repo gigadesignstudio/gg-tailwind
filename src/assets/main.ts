@@ -332,9 +332,9 @@ const typographyEntryValue = (key: string, k: any, v: any, accR: any) => {
         if (kk !== "default") {
           if (!accV[`@media screen(${kk})`]) {
             accV[`@media screen(${kk})`] = {};
-            if (!accV[`@media screen(${kk})`][`.typo-${key}`]) {
-              accV[`@media screen(${kk})`][`.typo-${key}`] = {};
-            }
+          }
+          if (!accV[`@media screen(${kk})`][`.typo-${key}`]) {
+            accV[`@media screen(${kk})`][`.typo-${key}`] = {};
           }
           accV[`@media screen(${kk})`][`.typo-${key}`][k] = vv;
         }
