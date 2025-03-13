@@ -1,7 +1,7 @@
 {
   "name": "gg-tailwind",
-  "description": "Giga Design Studio - Tailwind preset",
-  "version": "0.0.5",
+  "description": "Giga Design Studio - Tokens to Tailwind",
+  "version": "1.0.0",
   "type": "module",
   "keywords": [
     "giga",
@@ -22,29 +22,27 @@
   "files": [
     "package.json",
     "index.js",
-    "/src/assets/preset.ts",
-    "/src/assets/main.ts"
+    "/src/tokens-to-tw.ts"
   ],
   "dependencies": {
     "@tsconfig/node20": "^20.1.4",
-    "@types/node": "^22.7.5",
-    "@vitejs/plugin-vue": "^5.1.4",
-    "@vue/tsconfig": "^0.5.1",
-    "autoprefixer": "^10.4.20",
-    "postcss": "^8.4.47",
-    "prettier": "^3.3.3",
-    "prettier-plugin-tailwindcss": "^0.6.8",
+    "@types/node": "^22.13.10",
+    "@vitejs/plugin-vue": "^5.2.1",
+    "@vue/tsconfig": "^0.7.0",
+    "autoprefixer": "^10.4.21",
+    "prettier": "^3.5.3",
+    "prettier-plugin-tailwindcss": "^0.6.11",
     "ts-node": "^10.9.2",
-    "vite": "^5.4.8",
-    "vue": "^3.5.11",
-    "vue-tsc": "^2.1.6"
+    "vite": "^6.2.1",
+    "vue": "^3.5.13",
+    "vue-tsc": "^2.2.8"
   },
   "devDependencies": {
-    "typescript": "~5.6.3"
+    "@tailwindcss/vite": "^4.0.13",
+    "typescript": "~5.8.2"
   },
   "peerDependencies": {
-    "@tailwindcss/typography": "^0.5.15",
-    "tailwindcss": "^3.4.13"
+    "tailwindcss": "^4.0.0"
   },
   "publishConfig": {
     "access": "public"

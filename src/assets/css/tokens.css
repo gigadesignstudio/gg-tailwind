@@ -1,0 +1,110 @@
+:root {
+  --color-white: rgb(255, 255, 255);
+  --color-black: rgb(0, 0, 0);
+  --color-grey-100: rgb(240, 240, 240);
+  --color-grey-900: rgb(50, 50, 50);
+  --spacing-0: 0px;
+  --spacing-s: 4px;
+  @media (min-width: 600px) {
+    --spacing-s: 6px;
+  }
+  @media (min-width: 1200px) {
+    --spacing-s: 8px;
+  }
+  --spacing-m: 12px;
+  @media (min-width: 600px) {
+    --spacing-m: 18px;
+  }
+  @media (min-width: 1200px) {
+    --spacing-m: 24px;
+  }
+  --spacing-l: 20px;
+  @media (min-width: 600px) {
+    --spacing-l: 32px;
+  }
+  @media (min-width: 1200px) {
+    --spacing-l: 48px;
+  }
+  --radius-DEFAULT: 4px;
+  --blur-DEFAULT: 20px;
+  --aspect-video: 16/9;
+  --aspect-thumb: 4/5;
+}
+
+@font-face {
+  font-family: "Giga Haas Display";
+  font-weight: 500;
+  font-style: normal;
+  src: url('/fonts/gigahaasdisplay-500.woff2') format('woff2');
+}
+
+@theme {
+  --*: initial;
+  --breakpoint-s: 600px;
+  --breakpoint-m: 1200px;
+  --font-sans: "Giga Haas Display";
+  --color-white: var(--color-white);
+  --color-black: var(--color-black);
+  --color-grey-100: var(--color-grey-100);
+  --color-grey-900: var(--color-grey-900);
+  --spacing-0: var(--spacing-0);
+  --spacing-s: var(--spacing-s);
+  --spacing-m: var(--spacing-m);
+  --spacing-l: var(--spacing-l);
+  --radius-DEFAULT: var(--radius-DEFAULT);
+  --blur-DEFAULT: var(--blur-DEFAULT);
+  --aspect-video: var(--aspect-video);
+  --aspect-thumb: var(--aspect-thumb);
+}
+
+@layer components {
+  .typo-xl {
+    font-family: var(--font-sans);
+    font-size: 60px;
+    @media (min-width: 600px) {
+      font-size: 72px;
+    }
+    @media (min-width: 1200px) {
+      font-size: 80px;
+    }
+    line-height: 1.2;
+  }
+  .typo-l {
+    font-family: var(--font-sans);
+    font-size: 24px;
+    line-height: 1.2;
+  }
+  .typo-m {
+    font-family: var(--font-sans);
+    font-size: 18px;
+    line-height: 1.2;
+  }
+  .typo-s {
+    font-family: var(--font-sans);
+    font-size: 14px;
+    line-height: 1.2;
+  }
+}
+
+@utility lay {
+  display: grid;
+  grid-auto-flow: initial;
+  grid-auto-columns: minmax(0, 1fr);
+  grid-auto-rows: minmax(0, auto);
+}
+@utility lay-v {
+  grid-auto-flow: row;
+}
+@utility lay-h {
+    grid-auto-flow: column;
+  }
+@utility lay-o {
+  &>* {
+    grid-area: 1 / 1;
+  }
+}
+@utility lay-fluid {
+  grid-auto-columns: initial;
+  grid-auto-rows: initial;
+  justify-content: flex-start;
+}

@@ -1,3 +1,3 @@
-const preset = require("./src/assets/preset");
+const tokensToTw = require("./src/tokens-to-tw");
 
-module.exports = preset;
+module.exports = tokensToTw;
