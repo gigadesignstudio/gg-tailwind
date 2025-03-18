@@ -134,58 +134,6 @@ function generateFontFaces(fonts: NonNullable<TokenConfig["fonts"]>): string {
     .join("\n\n");
 }
 
-function generateUtils(
-  utils: NonNullable<TokenConfig["utils"]>,
-  breakpoints: Record<string, string>
-): string {
-  const processUtilStyles = (baseSelector: string, styles: Record<string, unknown>): string[] => {
-    const cssRules: string[] = [];
-
-    Object.entries(styles).forEach(([selector, value]) => {
-      if (isObject(value)) {
-        const rules: string[] = [];
-
-        Object.entries(value).forEach(([prop, propValue]) => {
-          if (isObject(propValue) && "default" in propValue) {
-            // Handle responsive properties
-            rules.push(`    ${prop}: ${propValue.default};`);
-
-            Object.entries(propValue).forEach(([bp, val]) => {
-              if (bp !== "default" && breakpoints[bp]) {
-                rules.push(`    @media (min-width: ${breakpoints[bp]}) {`);
-                rules.push(`      ${prop}: ${val};`);
-                rules.push(`    }`);
-              }
-            });
-          } else {
-            // Handle regular properties
-            rules.push(`    ${prop}: ${propValue};`);
-          }
-        });
-
-        cssRules.push(`  ${baseSelector}-${selector} {`);
-        cssRules.push(rules.join("\n"));
-        cssRules.push(`  }`);
-      }
-    });
-
-    return cssRules;
-  };
-
-  const utilRules = Object.entries(utils)
-    .map(([selector, styles]) => {
-      if (isObject(styles)) {
-        const processedStyles = processUtilStyles(selector, styles);
-        return processedStyles.join("\n");
-      }
-      return "";
-    })
-    .filter(Boolean)
-    .join("\n\n");
-
-  return `@layer utils {\n${utilRules}\n}`;
-}
-
 function generateComponents(
   components: NonNullable<TokenConfig["components"]>,
   breakpoints: Record<string, string>
@@ -251,15 +199,12 @@ export default function tokensToTw(
   return {
     name: "tokens-to-tw",
     async buildStart() {
-      const watcher = fs.watch(tokenPath, async () => {
-        await generateCSS();
-      });
-
-      process.on("exit", () => {
-        watcher.close();
-      });
-
       await generateCSS();
+    },
+    async hotUpdate({ file, server }) {
+      if (file.endsWith("tokens.json")) {
+        await generateCSS();
+      }
     },
   };
 
