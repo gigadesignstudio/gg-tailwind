@@ -18,7 +18,7 @@ interface TokenConfig {
       src: string;
     }
   >;
-  utils?: Record<string, Record<string, any>>;
+  utilities?: Record<string, Record<string, any>>;
   components?: Record<string, Record<string, unknown>>;
 }
 
@@ -189,6 +189,43 @@ function generateComponents(
   return `@layer components {\n${componentRules}\n}`;
 }
 
+function generateUtilities(
+  utilities: NonNullable<TokenConfig["utilities"]>,
+  breakpoints: Record<string, string>
+): string {
+  const processUtilityStyles = (selector: string, styles: Record<string, unknown>): string[] => {
+    const cssRules: string[] = [];
+
+    Object.entries(styles).forEach(([prop, value]) => {
+      if (isObject(value) && "default" in value) {
+        cssRules.push(`  ${prop}: ${value.default};`);
+
+        Object.entries(value).forEach(([bp, val]) => {
+          if (bp !== "default" && breakpoints[bp]) {
+            cssRules.push(`  @media (min-width: ${breakpoints[bp]}) {`);
+            cssRules.push(`    ${prop}: ${val};`);
+            cssRules.push(`  }`);
+          }
+        });
+      } else if (typeof value === "string" || typeof value === "number") {
+        cssRules.push(`  ${prop}: ${value};`);
+      }
+    });
+
+    return [`@utility ${selector} {`, ...cssRules, `}`];
+  };
+
+  return Object.entries(utilities)
+    .map(([selector, styles]) => {
+      if (isObject(styles)) {
+        return processUtilityStyles(selector, styles).join("\n");
+      }
+      return "";
+    })
+    .filter(Boolean)
+    .join("\n\n");
+}
+
 export default function tokensToTw(
   tokenUrl: string = "assets/css/tokens.json",
   outputUrl: string = "assets/css/tokens.css"
@@ -220,6 +257,7 @@ export default function tokensToTw(
         tokens.components
           ? generateComponents(tokens.components, tokens.theme.breakpoint || {})
           : "",
+        tokens.utilities ? generateUtilities(tokens.utilities, tokens.theme.breakpoint || {}) : "",
         // v-lay from gds-style :')
         `@utility lay {
   display: grid;

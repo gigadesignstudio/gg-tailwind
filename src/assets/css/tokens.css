@@ -57,33 +57,34 @@
   --aspect-thumb: var(--aspect-thumb);
 }
 
-@layer components {
-  .typo-xl {
-    font-family: var(--font-sans);
-    font-size: 60px;
-    @media (min-width: 600px) {
-      font-size: 72px;
-    }
-    @media (min-width: 1200px) {
-      font-size: 80px;
-    }
-    line-height: 1.2;
+@utility typo-xl {
+  font-family: var(--font-sans);
+  font-size: 60px;
+  @media (min-width: 600px) {
+    font-size: 72px;
   }
-  .typo-l {
-    font-family: var(--font-sans);
-    font-size: 24px;
-    line-height: 1.2;
+  @media (min-width: 1200px) {
+    font-size: 80px;
   }
-  .typo-m {
-    font-family: var(--font-sans);
-    font-size: 18px;
-    line-height: 1.2;
-  }
-  .typo-s {
-    font-family: var(--font-sans);
-    font-size: 14px;
-    line-height: 1.2;
-  }
+  line-height: 1.2;
+}
+
+@utility typo-l {
+  font-family: var(--font-sans);
+  font-size: 24px;
+  line-height: 1.2;
+}
+
+@utility typo-m {
+  font-family: var(--font-sans);
+  font-size: 18px;
+  line-height: 1.2;
+}
+
+@utility typo-s {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 1.2;
 }
 
 @utility lay {
