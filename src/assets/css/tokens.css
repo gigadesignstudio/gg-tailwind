@@ -57,6 +57,18 @@
   --aspect-thumb: var(--aspect-thumb);
 }
 
+@custom-variant s {
+  @media (min-width: 600px) {
+    @slot;
+  }
+}
+
+@custom-variant m {
+  @media (min-width: 1200px) {
+    @slot;
+  }
+}
+
 @utility typo-xl {
   font-family: var(--font-sans);
   font-size: 60px;
