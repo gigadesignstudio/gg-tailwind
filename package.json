@@ -1,7 +1,7 @@
 {
 	"name": "gg-tailwind",
 	"description": "Giga Design Studio - Tokens to Tailwind",
-	"version": "1.0.5",
+	"version": "1.0.15",
 	"type": "module",
 	"keywords": ["giga", "css", "tailwind"],
 	"repository": {
@@ -12,10 +12,30 @@
 		"dev": "vite --host",
 		"preview": "vite preview",
 		"build": "vite build",
-		"prebuild": "tsc"
+		"prebuild": "tsc",
+		"build:lib": "tsc --project tsconfig.lib.json"
 	},
-	"main": "index.js",
-	"files": ["package.json", "index.js", "/src/tokens-to-tw.ts"],
+	"main": "./index.js",
+	"types": "./index.d.ts",
+	"exports": {
+		".": {
+			"types": "./index.d.ts",
+			"import": "./index.js",
+			"default": "./index.js"
+		},
+		"./tokens-to-tw": {
+			"types": "./src/tokens-to-tw.d.ts",
+			"import": "./src/tokens-to-tw.js",
+			"default": "./src/tokens-to-tw.js"
+		}
+	},
+	"files": [
+		"package.json",
+		"index.js",
+		"index.d.ts",
+		"src/tokens-to-tw.js",
+		"src/tokens-to-tw.d.ts"
+	],
 	"dependencies": {
 		"@tsconfig/node20": "^20.1.4",
 		"@types/node": "^22.13.10",

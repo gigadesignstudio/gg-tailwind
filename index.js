@@ -1,3 +1,3 @@
-const tokensToTw = require("./src/tokens-to-tw");
+import tokensToTw from "./src/tokens-to-tw.js";
 
-module.exports = tokensToTw;
+export default tokensToTw;
